@@ -11,7 +11,7 @@ autoCreateId: false
 # 唯一菜单 进服发送菜单,如果没有就赠送一个(Unique menu: Send menu on login if none exists)
 clock:
   # 是否开启(Whether to enable)
-  enable: false
+  enable: true
   name: '   &8[&c服务器菜单&8]'
   material: clock
   lore:
