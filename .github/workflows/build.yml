@@ -35,7 +35,22 @@ jobs:
 
       - name: Build with Maven
         run: mvn --batch-mode clean install
-
+      - name: Fix empty Maven settings.xml
+        run: |
+          # 删除可能存在的空文件
+          rm -f ~/.m2/settings.xml
+          # 或者创建有效的 settings.xml
+          mkdir -p ~/.m2
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > ~/.m2/settings.xml
+          echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"' >> ~/.m2/settings.xml
+          echo '          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' >> ~/.m2/settings.xml
+          echo '          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0' >> ~/.m2/settings.xml
+          echo '          http://maven.apache.org/xsd/settings-1.0.0.xsd">' >> ~/.m2/settings.xml
+          echo '  <localRepository/>' >> ~/.m2/settings.xml
+          echo '</settings>' >> ~/.m2/settings.xml
+      
+      - name: Build with Maven
+        run: mvn --batch-mode clean install
       - name: Find built JAR
         id: find-jar
         run: |
